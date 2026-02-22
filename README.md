@@ -38,6 +38,7 @@ header {
   padding: 15px;
 }
 
+/* Voucher Cards */
 .card {
   background: linear-gradient(145deg, #ffffff, #f9f9f9);
   color: #333;
@@ -71,6 +72,7 @@ header {
   color: #ff9800;
 }
 
+/* Buttons */
 .btn {
   display: inline-block;
   margin-top: 15px;
@@ -89,6 +91,44 @@ header {
   transform: scale(1.05);
 }
 
+/* Admin Panel */
+#adminPanel {
+  background: rgba(255,255,255,0.95);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+#adminPanel h3 {
+  margin-bottom: 15px;
+  text-align: center;
+  color: #ff512f;
+}
+
+#adminPanel input, #adminPanel button {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+#adminPanel button {
+  background: #ee4d2d;
+  color: #fff;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#adminPanel button:hover {
+  background: #c7371b;
+}
+
+/* Footer */
 footer {
   margin-top: auto;
   padding: 20px;
@@ -107,6 +147,7 @@ footer {
 
 <div class="container">
 
+  <!-- Existing Vouchers -->
   <div class="card">
     <h2>50% OFF Flash Sale</h2>
     <p>Limited time Shopee promo!</p>
@@ -125,11 +166,54 @@ footer {
     </a>
   </div>
 
+  <!-- Admin Panel -->
+  <div id="adminPanel">
+    <h3>Add New Promo Code</h3>
+    <form id="adminForm">
+      <input type="text" id="voucherTitle" placeholder="Promo Title" required>
+      <input type="text" id="voucherDesc" placeholder="Description" required>
+      <input type="number" id="voucherCoins" placeholder="Bonus Coins" required>
+      <input type="text" id="voucherLink" placeholder="Affiliate Link" required>
+      <button type="submit">Add Promo</button>
+    </form>
+  </div>
+
 </div>
 
 <footer>
 © 2026 EarnHub PH | Shopee Affiliate Promo
 </footer>
+
+<script>
+const container = document.querySelector('.container');
+const adminForm = document.getElementById('adminForm');
+
+adminForm.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const title = document.getElementById('voucherTitle').value;
+  const desc = document.getElementById('voucherDesc').value;
+  const coins = document.getElementById('voucherCoins').value;
+  const link = document.getElementById('voucherLink').value;
+
+  // Create new voucher card
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <h2>${title}</h2>
+    <p>${desc}</p>
+    <p class="coins">+${coins} Bonus Coins</p>
+    <a href="${link}" target="_blank" class="btn">Get Promo</a>
+  `;
+
+  // Insert new card above admin panel
+  const adminPanel = document.getElementById('adminPanel');
+  container.insertBefore(card, adminPanel);
+
+  // Reset form
+  adminForm.reset();
+});
+</script>
 
 </body>
 </html>
